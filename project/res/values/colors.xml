@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_bg">#1565C0</color>
+
+    <!--
+      首页配色。刻意固定成浅色、不跟随系统深色模式：
+      本 App 界面元素全是自绘的，跟着系统切深色容易出现"深色底 + 深色字"看不清的情况。
+    -->
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="primary_light">#E3F2FD</color>
+    <color name="accent">#0288D1</color>
+
+    <color name="bg">#F2F4F7</color>
+    <color name="card">#FFFFFF</color>
+    <color name="divider">#E5E7EB</color>
+
+    <color name="text_main">#1F2933</color>
+    <color name="text_sub">#6B7280</color>
+
+    <color name="ok">#2E7D32</color>
+    <color name="warn">#C62828</color>
+    <color name="white">#FFFFFF</color>
+</resources>

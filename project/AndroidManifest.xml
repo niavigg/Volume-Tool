@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xuhao.volumetool"
+    android:versionCode="17"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 某些 ROM 上调音量会校验这个（normal 级，自动授予，不要白不要） -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- 后台保活：电池优化白名单（防杀关键一步） -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- 音量悬浮窗 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 磁贴一：音量 + -->
+        <service
+            android:name=".VolumeUpTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_volume_up"
+            android:label="@string/tile_up_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- 磁贴二：音量 − -->
+        <service
+            android:name=".VolumeDownTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_volume_down"
+            android:label="@string/tile_down_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- 磁贴三：媒体 / 铃声 切换（在状态栏直接换调哪一路） -->
+        <service
+            android:name=".StreamTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_stream"
+            android:label="@string/tile_stream_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- 磁贴四：悬浮窗开关（任何页面下拉就能开/关悬浮窗） -->
+        <service
+            android:name=".OverlayTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_overlay"
+            android:label="@string/tile_overlay_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- 后台保活服务：常驻前台服务，开机自启 + 被杀/被划掉自动拉回 -->
+        <service
+            android:name=".KeepAliveService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="volume_control_keepalive" />
+        </service>
+
+        <!-- 保活闹钟接收器：服务被划掉后由闹钟叫醒拉回 -->
+        <receiver
+            android:name=".KeepAliveReceiver"
+            android:exported="false" />
+
+        <!-- 音量悬浮窗服务（前台保活归 KeepAliveService 管） -->
+        <service
+            android:name=".OverlayService"
+            android:exported="false" />
+
+        <!--
+          exported=true：通知按钮由系统代发 PendingIntent，本 UID 内即可到达；
+          显式声明成 true 是为了 adb 也能直接发广播调试（action 是自定义的，外人猜不到）。
+        -->
+        <receiver
+            android:name=".VolumeReceiver"
+            android:exported="true" />
+
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
