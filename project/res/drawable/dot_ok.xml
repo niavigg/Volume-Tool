@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 状态小圆点：正常绿 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="@color/ok" />
-    <size
-        android:width="8dp"
-        android:height="8dp" />
-</shape>
