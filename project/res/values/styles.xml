@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      固定浅色 Material 主题 + 蓝色状态栏。
+      NoActionBar：标题栏自己在布局里画，比系统 ActionBar 好控制。
+    -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+        <!-- 状态栏是深蓝底，图标得用浅色 -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

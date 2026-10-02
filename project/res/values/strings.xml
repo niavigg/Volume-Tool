@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">音量助手</string>
+    <string name="subtitle">物理音量键坏了？用悬浮窗、通知栏或状态栏调音量</string>
+
+    <!-- ==================== 底部导航 ==================== -->
+    <string name="tab_volume">音量</string>
+    <string name="tab_settings">设置</string>
+    <string name="tab_about">关于</string>
+
+    <!-- ==================== 第 1 页：音量 ==================== -->
+    <string name="card_volume">当前音量</string>
+    <string name="state_muted">已静音</string>
+    <string name="hint_hold">按住可连续调节</string>
+
+    <!-- 音量类型（媒体 / 铃声）全局切换：一处切换，通知栏·状态栏·悬浮窗全部同步 -->
+    <string name="stream_media">媒体</string>
+    <string name="stream_ring">铃声</string>
+    <string name="stream_switch_head">调节对象</string>
+    <string name="stream_switch_desc">选哪一路，通知栏、状态栏、悬浮窗就一起调哪一路</string>
+
+    <string name="card_overlay">悬浮窗</string>
+    <string name="overlay_sub_on">已开启 · 任何界面都能调，可拖动</string>
+    <string name="overlay_sub_off">开启后，任何界面都能调音量</string>
+
+    <!-- ==================== 第 2 页：设置 ==================== -->
+    <string name="card_permission">权限状态</string>
+    <string name="card_status">运行状态</string>
+    <string name="card_shortcut">快捷操作</string>
+    <string name="card_hint">使用提示</string>
+
+    <string name="perm_overlay_title">悬浮窗权限</string>
+    <string name="perm_overlay_desc">显示在其他应用上层，悬浮窗要靠它</string>
+    <string name="perm_notif_title">通知权限</string>
+    <string name="perm_notif_desc">常驻通知里的 音量+/音量−/切换/静音 四个按钮</string>
+    <string name="perm_battery_title">电池优化白名单</string>
+    <string name="perm_battery_desc">不加白名单，后台容易被系统回收</string>
+    <string name="perm_state_ok">已授权</string>
+    <string name="perm_state_missing">未授权 · 点击去设置</string>
+    <string name="action_grant">去授权</string>
+
+    <string name="keepalive_title">后台保活</string>
+    <string name="keepalive_desc_on">运行中 · 开机自启，划掉也会回来</string>
+    <string name="keepalive_desc_off">已停止 · 点击重新启动</string>
+    <string name="action_restart">启动</string>
+
+    <string name="shortcut_desc">状态栏磁贴：下拉快捷设置 → 编辑，把「音量 +」「音量 −」「媒体/铃声」「悬浮窗」四个磁贴拖进去，之后不打开应用也能调。\n\n常驻通知：折叠态显示前三个按钮（音量+ / 音量− / 切换），展开后四个都在（多一个静音）。\n\n悬浮窗：平时是小圆显示当前音量，点一下展开成药丸并立刻调一格（左 − 右 +），可拖动，闲置自动收起。</string>
+
+    <string name="hint">• 悬浮窗在别的 App 上点不动？去系统设置打开「后台弹出界面 / 后台显示悬浮窗」，这是 MIUI、ColorOS 的限制，不是本应用能绕过的。\n• 通知栏数字没立刻变？本应用每 3 秒会自己核对一次音量，最迟 3 秒内刷新。\n• 部分机型（如 OPPO / 一加）会吞掉 setStreamVolume 写入，本应用会自动降级到 adjustStreamVolume，无需手动处理。\n• 开机自动启动，通知和悬浮窗自动恢复；从最近任务划掉也会自动回来。</string>
+
+    <!-- ==================== 第 3 页：关于 ==================== -->
+    <string name="about_features_title">功能特性</string>
+    <string name="about_features">• 屏幕大按钮调音量，长按连续调节\n• 悬浮窗：任何界面都能调，可拖动，闲置自动收起\n• 常驻通知：四个按钮（音量+ / 音量− / 切换 / 静音）\n• 状态栏磁贴：四个快捷开关\n• 媒体 / 铃声 全局切换，一处选定处处同步\n• 开机自启、后台保活、被划掉自动回来</string>
+
+    <string name="about_impl_title">实现方式</string>
+    <string name="about_impl">纯原生 Android API，零第三方依赖，只用 android.jar 即可编译。\n\n• 悬浮窗用 TYPE_APPLICATION_OVERLAY + 前台服务保活，靠 OnWindowAttachListener 感知窗口被摘，不用定时轮询\n• 音量写入做逐级降级 + 写后校验：setStreamVolume 无效时自动退到 adjustStreamVolume\n• 全局状态存在 SharedPreferences，切换时发应用内广播，各端实时同步\n• 底部导航用原生 View + selected 状态实现，不引入 ViewPager / Fragment</string>
+
+    <string name="about_opensource_title">开源</string>
+    <string name="about_opensource">本项目以 MIT 许可证开源，可自由使用、修改与分发。\n界面风格参考了开源项目 SmsForwarder（短信转发器）。</string>
+    <string name="about_repo">https://github.com/niavigg/Volume-Tool</string>
+    <string name="ver_fmt">v%1$s（build %2$d）</string>
+
+    <!-- ==================== 悬浮窗药丸 ==================== -->
+    <string name="overlay_minus">−</string>
+    <string name="overlay_plus">+</string>
+
+    <!-- ==================== 常驻通知 ==================== -->
+    <string name="notif_channel_name">音量控制</string>
+    <string name="notif_channel_desc">常驻通知，随时调节媒体 / 铃声音量</string>
+    <string name="notif_title">%1$s %2$d / %3$d</string>
+    <string name="notif_title_muted">%1$s（已静音）</string>
+    <string name="notif_text">当前在调「%1$s」，点这里打开音量助手</string>
+    <string name="action_up">音量+</string>
+    <string name="action_down">音量−</string>
+    <string name="action_mute">静音</string>
+    <string name="action_unmute">取消静音</string>
+    <string name="action_switch">→%1$s</string>
+
+    <!-- ==================== 快捷设置磁贴 ==================== -->
+    <string name="tile_up_label">音量 +</string>
+    <string name="tile_down_label">音量 −</string>
+    <string name="tile_subtitle">%1$s %2$d/%3$d</string>
+    <string name="tile_subtitle_muted">%1$s：已静音</string>
+    <string name="tile_stream_label">媒体/铃声</string>
+    <string name="tile_overlay_label">悬浮窗</string>
+    <string name="tile_overlay_on">悬浮窗：开</string>
+    <string name="tile_overlay_off">悬浮窗：关</string>
+
+    <!-- ==================== 权限索要弹窗 ==================== -->
+    <string name="perm_dialog_title">还差权限，帮我授权一下</string>
+    <string name="perm_need_overlay">悬浮窗权限（显示在其他应用上层）：音量悬浮窗要靠它才能浮在别的界面上。</string>
+    <string name="perm_need_notif">通知权限：常驻通知里的 音量+/音量−/切换/静音 四个按钮要靠它。</string>
+    <string name="perm_go_overlay">去授权悬浮窗</string>
+    <string name="perm_go_notif">去授权通知</string>
+    <string name="perm_later">稍后再说</string>
+</resources>
